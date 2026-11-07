@@ -98,6 +98,17 @@ h1, h2, h3 { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -0
 .hero__note { margin-top: 26px; font-size: 15px; color: var(--muted-dark); }
 @media (max-width: 900px) { .hero { padding: 48px 0 64px; } .hero__grid { grid-template-columns: 1fr; gap: 40px; } }
 
+.hero-photo { position: relative; margin: 0; justify-self: end; width: 100%; max-width: 460px; }
+.hero-photo img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 24px; border: 1px solid var(--line-dark); background: var(--ink-2); }
+.hero-card { margin-top: 14px; background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 16px; padding: 14px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.hero-card__title { font-weight: 600; font-size: 14px; color: var(--paper); flex-basis: 100%; }
+.hero-card .tags { margin-top: 0; }
+.hero-card .tag { font-size: 12px; padding: 4px 10px; }
+.hero-card__link { color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+.hero-card__link:hover { color: var(--accent); }
+@media (max-width: 900px) {
+  .hero-photo { justify-self: start; max-width: 520px; }
+}
 .chat { background: var(--ink-2); border: 1px solid var(--line-dark); border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
 .chat__head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--line-dark); font-size: 15px; font-weight: 600; }
 .chat__head small { font-weight: 400; font-size: 12px; color: var(--muted-dark); }
