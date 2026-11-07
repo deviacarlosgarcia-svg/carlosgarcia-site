@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estudo de caso: assistente de atendimento com IA · Carlos Garcia</title>
+<meta name="description" content="Como construí um assistente de atendimento com IA em n8n que conversa, guarda memória em PostgreSQL, qualifica leads e avisa quando um humano precisa agir.">
+<link rel="canonical" href="https://carlosgarcia.tech/caso-assistente-ia.html">
+<meta name="theme-color" content="#0E1A17">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Estudo de caso: assistente de atendimento com IA">
+<meta property="og:description" content="Arquitetura, decisões e limitações de um assistente de IA em produção, feito com n8n e PostgreSQL.">
+<meta property="og:url" content="https://carlosgarcia.tech/caso-assistente-ia.html">
+<meta property="og:image" content="https://carlosgarcia.tech/assets/img/og-carlosgarcia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="brand" href="/" aria-label="Carlos Garcia, página inicial">
+      <span class="brand__mark" aria-hidden="true">CG</span>
+      <span class="brand__name">Carlos Garcia <span>· Automação &amp; IA</span></span>
+    </a>
+    <button class="nav__toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+      <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="menu" aria-label="Seções">
+      <a href="/#servicos">Serviços</a>
+      <a href="/#projeto">Projeto</a>
+      <a href="/#sobre">Sobre</a>
+      <a class="btn btn--accent" href="/#contato">Fale comigo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+  <section class="dark page-hero">
+    <div class="wrap">
+      <p class="eyebrow">Estudo de caso · Projeto próprio em produção</p>
+      <h1>Assistente de atendimento com IA que conversa, qualifica e avisa quando um humano precisa agir</h1>
+      <div class="btns" style="margin-top: 28px">
+        <a class="btn btn--accent" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Testar ao vivo</a>
+        <a class="btn btn--ghost-light" href="/#contato">Quero um para o meu negócio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+
+      <!--
+        VÍDEO (mês 1 do plano): quando o vídeo de 2 a 3 minutos estiver gravado,
+        descomente o bloco abaixo e troque o src pelo link de incorporação (YouTube não listado ou Loom).
+      <div style="aspect-ratio: 16 / 9; margin: 0 0 32px">
+        <iframe src="URL_DE_INCORPORACAO" title="Demonstração do assistente de IA" style="width: 100%; height: 100%; border: 0; border-radius: 16px" allowfullscreen loading="lazy"></iframe>
+      </div>
+      -->
+
+      <h2 style="margin-top: 0">O problema</h2>
+      <p>Pequenas e médias empresas recebem contatos a qualquer hora, mas só respondem em horário comercial. Nesse intervalo, o cliente que estava pronto para comprar procura outra opção, e a equipe gasta tempo igual com curiosos e com quem quer fechar.</p>
+      <p>O objetivo foi construir um assistente que fizesse o primeiro atendimento, entendesse a necessidade, separasse os contatos por prioridade e chamasse uma pessoa no momento certo.</p>
+
+      <h2>O que o assistente faz</h2>
+      <ol class="flow">
+        <li><strong>Conversa no chat web.</strong> O visitante escreve em linguagem natural e o assistente responde entendendo o contexto.</li>
+        <li><strong>Lembra da conversa.</strong> O histórico fica salvo em PostgreSQL, então o assistente não repete perguntas já respondidas.</li>
+        <li><strong>Qualifica o contato.</strong> Cada lead é classificado como frio, morno ou quente, conforme a necessidade e a urgência demonstradas.</li>
+        <li><strong>Registra tudo.</strong> Os dados do lead e a classificação vão para uma planilha, prontos para acompanhamento.</li>
+        <li><strong>Chama um humano.</strong> Quando o contato precisa de atendimento pessoal, um e-mail de aviso é enviado na hora.</li>
+      </ol>
+
+      <h2>Arquitetura e decisões técnicas</h2>
+      <div class="stack" aria-label="Tecnologias usadas">
+        <span>n8n</span><span>IA generativa</span><span>PostgreSQL</span><span>Webhooks</span><span>VPS própria</span><span>HTTPS</span>
+      </div>
+      <ul>
+        <li><strong>n8n como orquestrador.</strong> Todo o fluxo, da mensagem recebida ao aviso por e-mail, roda em workflows visuais, fáceis de manter e ajustar.</li>
+        <li><strong>Memória persistente em PostgreSQL.</strong> Guardar o histórico em banco de dados, e não apenas na sessão, permite continuidade entre conversas.</li>
+        <li><strong>Servidor próprio.</strong> Hospedagem em VPS com HTTPS dá controle sobre os dados e custo previsível, sem depender de plataforma de terceiros para cada execução.</li>
+        <li><strong>Tratamento de erros e alertas.</strong> Falhas de serviços externos não derrubam o atendimento em silêncio: o erro é capturado e gera alerta.</li>
+      </ul>
+
+      <h2>Limitações atuais</h2>
+      <div class="callout">
+        <p style="margin: 0">Transparência faz parte do trabalho. Hoje o assistente funciona no <strong>chat web</strong>. A integração com o WhatsApp oficial (API do WhatsApp Business) é uma evolução possível, ainda não implementada.</p>
+      </div>
+      <!-- MÊS 1 do plano: adicionar aqui o custo mensal estimado de IA e servidor, com números reais medidos. -->
+
+      <h2>O que isso significa para o seu negócio</h2>
+      <p>A mesma estrutura pode ser adaptada para atender seus clientes com as informações da sua empresa, classificar os contatos pelos critérios que importam para a sua venda e avisar a pessoa certa da sua equipe.</p>
+      <div class="btns" style="margin-top: 24px">
+        <a class="btn btn--dark" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Testar o assistente</a>
+        <a class="btn btn--ghost-dark" href="/#contato">Conversar sobre o meu caso</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div>© <span id="ano">2026</span> Carlos Garcia · Automação de processos e agentes de IA · Rio de Janeiro</div>
+    <nav aria-label="Rodapé">
+      <a href="https://www.linkedin.com/in/carlosgarcia-ia" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://wa.me/5521987308053" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="mailto:dev.ia.carlosgarcia@gmail.com">dev.ia.carlosgarcia@gmail.com</a>
+      <a href="/privacidade.html">Privacidade</a>
+    </nav>
+  </div>
+</footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
