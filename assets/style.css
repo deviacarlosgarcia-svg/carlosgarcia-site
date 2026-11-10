@@ -135,6 +135,8 @@ h1, h2, h3 { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -0
 @media (max-width: 900px) { .split { grid-template-columns: 1fr; gap: 32px; } }
 .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
 .checklist li { background: var(--white); border-radius: 14px; padding: 16px 20px; }
+.case2 { margin-top: 64px; padding-top: 64px; border-top: 1px solid var(--line); }
+.case2__title { font-size: clamp(24px, 3vw, 30px); line-height: 1.2; margin: 0; }
 
 /* Passos */
 .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
@@ -160,6 +162,8 @@ h1, h2, h3 { font-family: "Space Grotesk", Inter, sans-serif; letter-spacing: -0
 /* Planos */
 .plan { display: flex; flex-direction: column; gap: 10px; }
 .plan .price { font-family: "Space Grotesk", sans-serif; font-size: 22px; font-weight: 700; margin-top: 4px; }
+.plan .price-sub { margin: -6px 0 0; font-size: 15px; }
+.plan.card--dark .price-sub { color: var(--accent); }
 .plan ul { margin: 6px 0 0; padding-left: 20px; }
 .plan.card ul { color: var(--body); }
 .plan.card--dark ul { color: var(--text-dark); }
