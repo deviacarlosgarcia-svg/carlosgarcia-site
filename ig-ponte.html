@@ -1,0 +1,8 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Carregando artes</title></head><body>carregando</body><script>
+const q=new URLSearchParams(location.search);const post=q.get('post')||'';const n=Math.min(10,parseInt(q.get('n')||'0',10));
+if(!/^[0-9a-z-]+$/.test(post)){document.body.textContent='post invalido'}else{
+const base='https://raw.githubusercontent.com/deviacarlosgarcia-svg/carlosgarcia-site/instagram-artes/'+post+'/';
+(async()=>{const out=[];for(let i=1;i<=n;i++){const nm=String(i).padStart(2,'0')+'.jpg';const r=await fetch(base+nm);out.push({nm,b:await r.arrayBuffer()});}
+if(!window.opener){document.body.textContent='sem opener';return;}
+window.opener.postMessage({tipo:'ig-artes',post,arquivos:out},'https://www.instagram.com');document.body.textContent='enviado '+out.length;setTimeout(()=>window.close(),1500);})().catch(e=>document.body.textContent='erro '+e);}
+</script></html>
