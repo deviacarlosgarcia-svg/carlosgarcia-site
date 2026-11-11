@@ -130,6 +130,7 @@
   function rodar(c, chave) {
     limpar();
     marcar(chave || "");
+    if (cta) cta.hidden = true;
     title.textContent = c.titulo;
     flow.innerHTML = "";
     result.hidden = true;
@@ -149,10 +150,13 @@
     timers.push(setTimeout(function () { mostrarResultado(c, itens.length); }, itens.length * passo));
   }
 
+  var cta = document.getElementById("sim-cta");
   function mostrarResultado(c, n) {
     result.textContent = n + " etapas concluídas. " + c.resultado;
     result.hidden = false;
+    if (cta) cta.hidden = false;
   }
+  function medir(chave) { if (window.cgEvento) window.cgEvento("simulador", chave || "generico"); }
 
   function escolher(texto) {
     var t = (texto || "").trim();
@@ -167,13 +171,19 @@
     rodar(generico(t), "");
   }
 
-  form.addEventListener("submit", function (e) { e.preventDefault(); iniciado = true; escolher(input.value); });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); iniciado = true; escolher(input.value);
+    var t = (input.value || "").trim(), k = "";
+    for (var i = 0; i < REGRAS.length; i++) { if (REGRAS[i][0].test(t)) { k = REGRAS[i][1]; break; } }
+    medir(t ? (k || "generico") : "orcamento");
+  });
   Array.prototype.forEach.call(chips, function (c) {
     c.addEventListener("click", function () {
       var k = c.getAttribute("data-cenario");
       input.value = "";
       iniciado = true;
       rodar(CENARIOS[k], k);
+      medir(k);
     });
   });
 

@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/v2.css">
+<link rel="stylesheet" href="/assets/v2.css?v=3">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -69,7 +69,7 @@
       <p class="lead">Automatizo processos, integro os sistemas da sua empresa e coloco assistentes de IA para atender clientes e avisar sua equipe na hora certa.</p>
       <div class="btns">
         <a class="btn btn--ink" href="https://wa.me/5521987308053?text=Ol%C3%A1%2C%20Carlos!%20Vim%20pelo%20seu%20site." target="_blank" rel="noopener">Falar no WhatsApp</a>
-        <a class="btn btn--line" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Conversar com meu assistente de IA</a>
+        <a class="btn btn--line" data-onde="topo" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Conversar com meu assistente de IA</a>
       </div>
       <p class="hero__note">Mais de 10 anos em TI corporativo, em empresas de saúde e varejo. Hoje, n8n, IA generativa, PostgreSQL e APIs.</p>
     </div>
@@ -94,6 +94,7 @@
         <p class="sim__title" id="sim-title">Orçamentos no WhatsApp</p>
         <ol class="sim__flow" id="sim-flow" aria-live="polite"></ol>
         <p class="sim__result" id="sim-result" hidden></p>
+        <a class="btn btn--signal sim__cta" id="sim-cta" data-onde="simulador" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener" hidden>Quero isso no meu negócio</a>
       </div>
       <p class="sim__foot">Simulação ilustrativa, com dados de exemplo. Para conversar com uma IA de verdade, use o <a href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">meu assistente</a>.</p>
     </div>
@@ -150,7 +151,7 @@
         <h3>Assistente de atendimento com IA</h3>
         <p>Construí do zero o meu próprio assistente. Ele conversa, entende a necessidade, lembra do histórico, classifica o contato e avisa quando uma pessoa precisa assumir.</p>
         <div class="btns">
-          <a class="btn btn--ink" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Conversar com o assistente</a>
+          <a class="btn btn--ink" data-onde="case" href="https://chat.carlosgarcia.tech" target="_blank" rel="noopener">Conversar com o assistente</a>
           <a class="btn btn--line" href="/caso-assistente-ia.html">Ver como foi construído</a>
         </div>
       </div>
@@ -301,6 +302,7 @@
 </footer>
 
 <script src="/assets/site.js?v=2" defer></script>
-<script src="/assets/simulador.js" defer></script>
+<script src="/assets/metricas.js" defer></script>
+<script src="/assets/simulador.js?v=2" defer></script>
 </body>
 </html>
